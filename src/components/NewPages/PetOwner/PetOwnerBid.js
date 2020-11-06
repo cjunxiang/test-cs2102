@@ -74,33 +74,34 @@ export class PetOwnerBid extends React.Component {
   };
 
   fetchAvailableCaretakers = async () => {
-    // /getavailablecaretakers/:start_date/:end_date
-    await fetch(
-      "/getavailablecaretakers/" +
-        convertDateTimeToYYYYMMdd(
-          this.state.dateRangePicker.selection.startDate
-        ) +
-        "/" +
-        convertDateTimeToYYYYMMdd(
-          this.state.dateRangePicker.selection.endDate
-        ) +
-        "/" +
-        this.state.pet.pet_name,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({ caretakers: data, isLoading: false });
-      })
-      .catch((error) => console.log(`Caught promise: ${error}`));
+    if (this.state.petName) {
+      await fetch(
+        "/getavailablecaretakers/" +
+          convertDateTimeToYYYYMMdd(
+            this.state.dateRangePicker.selection.startDate
+          ) +
+          "/" +
+          convertDateTimeToYYYYMMdd(
+            this.state.dateRangePicker.selection.endDate
+          ) +
+          "/" +
+          this.state.pet.pet_name,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({ caretakers: data, isLoading: false });
+        })
+        .catch((error) => console.log(`Caught promise: ${error}`));
+    }
   };
 
   handleConfirmSelectDates = (which, payload) => {

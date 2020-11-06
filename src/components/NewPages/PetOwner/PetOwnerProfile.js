@@ -68,11 +68,14 @@ export class PetOwnerProfile extends React.Component {
   };
 
   fetchMyPets = async () => {
-    await fetch("/api/pets/" + this.props.petOwnerEmail, {
-      headers: {
-        accepts: "application/json",
-      },
-    })
+    await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/pets/` + this.props.petOwnerEmail,
+      {
+        headers: {
+          accepts: "application/json",
+        },
+      }
+    )
       .then((response) => {
         return response.json();
       })
@@ -83,7 +86,7 @@ export class PetOwnerProfile extends React.Component {
   };
 
   fetchUserName = async () => {
-    await fetch("/api/users/" + this.props.petOwnerEmail, {
+    await fetch("/users/" + this.props.petOwnerEmail, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -100,7 +103,7 @@ export class PetOwnerProfile extends React.Component {
   };
 
   fetchRecents = async () => {
-    await fetch("/api/recentSuccessfulBids/" + this.props.petOwnerEmail, {
+    await fetch("/recentSuccessfulBids/" + this.props.petOwnerEmail, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -117,7 +120,7 @@ export class PetOwnerProfile extends React.Component {
   };
 
   fetchPaymentMethods = async () => {
-    await fetch("/api/paymentcredentials/" + this.props.petOwnerEmail, {
+    await fetch("/paymentcredentials/" + this.props.petOwnerEmail, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -135,7 +138,7 @@ export class PetOwnerProfile extends React.Component {
 
   handleDeletePayment = async (oldData) => {
     await fetch(
-      "/api/paymentcredentials/" +
+      "/paymentcredentials/" +
         this.props.petOwnerEmail +
         "/" +
         oldData.credit_card_number +
@@ -156,16 +159,13 @@ export class PetOwnerProfile extends React.Component {
   };
 
   handleDeletePet = async (oldData) => {
-    await fetch(
-      "/api/pets/" + oldData.pet_name + "/" + oldData.pet_owner_email,
-      {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    await fetch("/pets/" + oldData.pet_name + "/" + oldData.pet_owner_email, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => {
         return response.json();
       })
