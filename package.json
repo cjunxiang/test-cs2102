@@ -1,0 +1,16 @@
+{
+  "name": "cs2102",
+  "version": "0.1.0",
+  "main": "node-server/index.js",
+  "scripts": {
+    "heroku-prebuild": "cd node-server && npm install && npm run build && cd .. && npm install",
+    "start": "cd node-server && npm start",
+    "start:all": "concurrently \"nodemon node-server/index.js\" \"cd frontend && npm start\" ",
+    "start:fe": "cd frontend && npm start",
+    "build:fe": "cd frontend && yarn build"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.6"
+  }
+}

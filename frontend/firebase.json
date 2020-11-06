@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "https://cs2102-petshop.herokuapp.com/"
+      },
+      {
+        "source": "/api/*",
+        "destination": "https://cs2102-petshop.herokuapp.com/"
+      }
+    ]
+  }
+}
